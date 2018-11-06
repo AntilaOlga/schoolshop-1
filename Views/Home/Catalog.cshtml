@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Каталог</title>
+</head>
+<body>
+    <div>
+        <h3>Каталог</h3>
+        <h4>@ViewData["Message"]</h4>
+        <table class="table table-hover">
+            @foreach (var b in ViewBag.Products)
+            {
+                <tr>
+                    <td><p>@b.Name</p></td>
+                    <td><p>@b.Price</p></td>
+                    <td><p><a href="/Home/Put/@b.Id">В корзину</a></p></td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
