@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Shop.ViewModels
 {
-    public class BasketViewModel
+    public class BagViewModel
     {
-        public List<BasketItemViewModel> Items { get; set; }
+        public List<BagItemViewModel> Items { get; set; }
     }
 }

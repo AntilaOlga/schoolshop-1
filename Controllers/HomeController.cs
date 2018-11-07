@@ -26,6 +26,7 @@ namespace Shop.Controllers
             return View();
         }
 
+        //Просмотр каталога
         public IActionResult Catalog()
         {
             IEnumerable<Product> items = _db.Products;
@@ -33,32 +34,46 @@ namespace Shop.Controllers
             return View("Catalog");
         }
 
+        //Добавление товара в корзину
         public IActionResult Put(int id)
         {
-            var item = _db.Products.Where(x => x.Id == id).FirstOrDefault();
-            if (item == null) return Redirect("Index");
+            var product = _db.Products.Where(x => x.Id == id).FirstOrDefault();
+            if (product == null) return Redirect("Index");
 
-            OrderItem orderItem = new OrderItem(item, 1);
-            Order order = new Order();
-            order.Items.Add(orderItem);
-
-            _db.Orders.Add(order);
+            Order order = _db.Orders.Where(x => x.OrderStatus == Order.Status.Bag)
+                                    .Include(x => x.Items)
+                                    .ThenInclude(x => x.Product).FirstOrDefault();
+            //Корзина пуста
+            if (order == null)
+            {
+                order = new Order();
+                order.Items.Add(new OrderItem(product, 1));
+                _db.Orders.Add(order);
+            }
+            //Корзина не пуста
+            else
+            {
+                //Если товар уже встречался в корзине, то увеличиваем количество на 1
+                var item = order.Items.Where(x => x.Product.Id == product.Id).FirstOrDefault();
+                if (item == null) order.Items.Add(new OrderItem(product, 1));
+                else item.Count++;
+            }
             _db.SaveChanges();
 
-            ViewData["Message"] = $"Товар \"{item.Name}\" успешно добавлен в корзину";
-
+            ViewData["Message"] = $"Товар \"{product.Name}\" успешно добавлен в корзину";
             return Catalog();
         }
 
-        public IActionResult Basket()
+        //Корзина
+        public IActionResult Bag()
         {
-            var item = _db.Orders.Include(x => x.Items)
+            var item = _db.Orders.Where(x => x.OrderStatus == Order.Status.Bag)
+                                 .Include(x => x.Items)
                                  .ThenInclude(x => x.Product).FirstOrDefault();
-
-            BasketViewModel basketVM = new BasketViewModel
+            BagViewModel bagVM = new BagViewModel
             {
                 Items = item.Items
-                        .Select(x => new BasketItemViewModel
+                        .Select(x => new BagItemViewModel
                         {
                             Name = x.Product.Name,
                             Count = x.Count,
@@ -66,7 +81,7 @@ namespace Shop.Controllers
 
                         }).ToList()
             };
-            ViewBag.Basket = basketVM;
+            ViewBag.Bag = bagVM;
             return View();
         }
 
