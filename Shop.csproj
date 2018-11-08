@@ -11,8 +11,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.4" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Mappings\" />
-  </ItemGroup>
 </Project>

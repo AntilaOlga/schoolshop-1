@@ -25,13 +25,14 @@ namespace Shop.Models
         public int Id { get; set; }
         public string Number { get; set; }
         public List<OrderItem> Items { get; set; }
-        public Status OrderStatus { get; set; } 
+        public Status OrderStatus { get; set; }
+        public int PersonId { get; set; }
+        public Person Person { get; set; }
 
         private string GenerateNumber()
         {
             return $"{DateTime.Now.ToString("yyyyMMdd-HHmmss")}";
         }
-
 
     }
 }
