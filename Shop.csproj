@@ -5,10 +5,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\3.jpg" />
+    <Content Remove="wwwroot\images\4.jpg" />
+    <Content Remove="wwwroot\images\5.jpg" />
+    <Content Remove="wwwroot\images\6.jpg" />
+    <Content Remove="wwwroot\images\7.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Order\Success.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Order\DataPerson.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 </Project>

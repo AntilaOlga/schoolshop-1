@@ -26,7 +26,7 @@ namespace Shop.Models
         public string Number { get; set; }
         public List<OrderItem> Items { get; set; }
         public Status OrderStatus { get; set; }
-        public int PersonId { get; set; }
+        public int? PersonId { get; set; }
         public Person Person { get; set; }
 
         private string GenerateNumber()

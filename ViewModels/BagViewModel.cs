@@ -8,5 +8,6 @@ namespace Shop.ViewModels
     public class BagViewModel
     {
         public List<BagItemViewModel> Items { get; set; }
+        public decimal PriceTotal => Items.Sum(x=> x.PriceTotal);
     }
 }
