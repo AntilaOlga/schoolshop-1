@@ -46,10 +46,6 @@ namespace Shop.Controllers
             _db.Entry(item).State = EntityState.Modified;
             _db.SaveChanges();
 
-            Order order = new Order();
-            _db.Orders.Add(order);
-            _db.SaveChanges();
-
             return View("Success");
         }
 
