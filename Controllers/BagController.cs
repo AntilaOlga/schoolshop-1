@@ -38,7 +38,7 @@ namespace Shop.Controllers
                 _db.SaveChanges();
             }
 
-            BagViewModel bagVM = new BagViewModel
+            BagViewModel bagViewModel = new BagViewModel
             {
                 Items = bag.Items
                            .Select(x => new BagItemViewModel
@@ -50,8 +50,7 @@ namespace Shop.Controllers
 
                             }).ToList()
             };
-            ViewBag.Bag = bagVM;
-            return View("Bag");
+            return View(bagViewModel);
         }
 
         [HttpGet]

@@ -1,11 +1,6 @@
-﻿
-<!DOCTYPE html>
+﻿@using Shop.ViewModels
+@model BagViewModel
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Корзина</title>
-</head>
 <body>
     <div>
         <h3>Корзина</h3>
@@ -20,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var b in ViewBag.Bag.Items)
+                @foreach (var b in Model.Items)
                 {
                     <tr>
                         <td><p>@b.Name</p></td>
@@ -34,10 +29,9 @@
         </table>
     </div>
     <div class="form-group">
-        <p class="form-text">Полная стоимость Вашего заказа составляет: @ViewBag.Bag.PriceTotal</p>
+        <p class="form-text">Полная стоимость Вашего заказа составляет: @Model.PriceTotal</p>
     </div>
     <form method="get" action="Order/Input">
         <input type="submit" class="btn btn-primary" value="Оформить заказ" />
     </form>
 </body>
-</html>
