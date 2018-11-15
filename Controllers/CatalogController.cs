@@ -30,8 +30,8 @@ namespace Shop.Controllers
             TestData.CreateTestData(_db);
 
             IEnumerable<Product> items = _db.Products;
-            ViewBag.Products = items;
-            return View("Catalog");
+            //ViewBag.Products = items;
+            return View("Catalog", items);
         }
 
         [HttpGet]
@@ -60,7 +60,7 @@ namespace Shop.Controllers
             }
             _db.SaveChanges();
 
-            ViewData["Message"] = $"Товар \"{product.Name}\" успешно добавлен в корзину";
+            //ViewData["Message"] = $"Товар \"{product.Name}\" успешно добавлен в корзину";
             return Index();
         }
     }
