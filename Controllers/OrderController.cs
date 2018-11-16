@@ -11,7 +11,6 @@ using Shop.ViewModels;
 
 namespace Shop.Controllers
 {
-    //Класс для оформления заказа
     [Route("order")]
     public class OrderController : Controller
     {
@@ -22,6 +21,7 @@ namespace Shop.Controllers
             _db = db;
         }
 
+        #region Оформление заказа
         [HttpGet]
         [Route("input")]
         public IActionResult InputDataPerson()
@@ -29,7 +29,6 @@ namespace Shop.Controllers
             return View("DataPerson");
         }
 
-        //Оформление заказа
         [HttpPost]
         [Route("confirm")]
         public IActionResult Confirm(Person person)
@@ -48,6 +47,35 @@ namespace Shop.Controllers
 
             return View("Success");
         }
+        #endregion
+
+        #region История заказов
+        [HttpGet]
+        [Route("")]
+        public IActionResult Index()
+        {
+            IEnumerable<Order> items = _db.Orders.Include(x => x.Items)
+                                                 .ThenInclude(x => x.Product)
+                                                 .Where(x => x.OrderStatus != Order.Status.Bag)
+                                                 .OrderByDescending(x=>x.Number).ToList();
+
+            var ordersViewModel = items
+                .Select(order => new BagViewModel
+                {
+                    Number = order.Number,
+                    OrderStatus = order.OrderStatus,
+                    Items = order.Items
+                        .Select(item => new BagItemViewModel
+                        {
+                            Name = item.Product.Name,
+                            Price = item.Product.Price,
+                            Count = item.Count
+                        }).ToList()
+                });
+
+            return View(ordersViewModel);
+        }
+        #endregion
 
     }
 }

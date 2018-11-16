@@ -21,6 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Order\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Order\Success.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

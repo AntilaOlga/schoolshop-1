@@ -1,8 +1,23 @@
 ﻿@model IEnumerable<Product>
 
+<style>
+    #grid {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 2vw;
+    }
+
+        #grid > div {
+            font-size: 2vw;
+            padding: .4em;
+            text-align: center;
+        }
+</style>
+
 <body>
     @section scripts {
-    
+
         <script type="text/javascript">
             function add(Id, Name) {
                 var xhr = new XMLHttpRequest();
@@ -16,19 +31,20 @@
                 };
             }
         </script>
-}
+    }
         <div>
             <h3>Каталог</h3>
-            <h4><span id="message_after_add"> </span></h4>
-            <table class="table table-hover">
+            <h4><span class="alert-success" id="message_after_add"> </span></h4>
+           
+            <div id="grid">
                 @foreach (var b in Model)
                 {
-                <tr>
-                    <td><p>@b.Name</p></td>
-                    <td><p>@b.Price</p></td>
-                    <td><button id="button_@(b.Id)" onclick="add(@(b.Id),'@b.Name')" class="btn btn-primary">В корзину</button></td>
-                </tr>
+                <div>
+                    <p>@b.Name</p>
+                    <p>@b.Price</p>
+                    <button id="button_@(b.Id)" onclick="add(@(b.Id),'@b.Name')" class="btn btn-primary">В корзину</button>
+                </div>
                 }
-            </table>
+                </div>
         </div>
 </body>

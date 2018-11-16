@@ -1,0 +1,33 @@
+﻿@using Shop.ViewModels
+@model IEnumerable<BagViewModel>
+
+@foreach (var order in Model)
+{
+<div class="md-t-1">
+    <h3>Номер заказа: @order.Number</h3>
+    <h4>Статус заказа: @order.OrderStatus</h4>
+    <h4>Стоимость заказа: @order.PriceTotal</h4>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Название продукта</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Итог</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in order.Items)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Count</td>
+                    <td>@item.PriceTotal</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br>
+</div>
+}
