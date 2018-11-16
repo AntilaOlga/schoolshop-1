@@ -2,15 +2,14 @@
 
 <body>
     @section scripts {
-        <script>
+    
+        <script type="text/javascript">
             function add(Id, Name) {
                 var xhr = new XMLHttpRequest();
                 xhr.open("GET", "Catalog/Add/" + Id, true);
                 xhr.send();
                 xhr.onload = function () {
-                    console.log(xhr.response);
                     if (xhr.response) {
-                        var $button = document.getElementById("button_" + Id);
                         var $orderStatusLabel = document.getElementById("message_after_add");
                         $orderStatusLabel.textContent = "Товар " + Name + " успешно добавлен в корзину";
                     }
@@ -20,17 +19,15 @@
 }
         <div>
             <h3>Каталог</h3>
-            <!--<h4>ViewData["Message"]</h4>-->
             <h4><span id="message_after_add"> </span></h4>
             <table class="table table-hover">
                 @foreach (var b in Model)
                 {
-                    <tr>
-                        <td><p>@b.Name</p></td>
-                        <td><p>@b.Price</p></td>
-                        <!--<td><p><a href="/Catalog/Add/b.Id">В корзину</a></p></td>-->
-                        <td><button id="button_@(b.Id)" onclick="add(@(b.Id), @(b.Name))" class="btn btn-success">В корзину</button></td>
-                    </tr>
+                <tr>
+                    <td><p>@b.Name</p></td>
+                    <td><p>@b.Price</p></td>
+                    <td><button id="button_@(b.Id)" onclick="add(@(b.Id),'@b.Name')" class="btn btn-primary">В корзину</button></td>
+                </tr>
                 }
             </table>
         </div>
